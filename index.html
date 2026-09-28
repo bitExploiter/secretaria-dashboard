@@ -5,147 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Secretaria</title>
   <style>
-    :root {
-      --bg: #0b1020; --card: rgba(18, 26, 49, 0.86); --line: rgba(255,255,255,.08);
-      --text: #eef2ff; --muted: #9aa6c4; --indigo: #8b9cff; --indigo-dim: rgba(139,156,255,.14);
-      --teal: #5eead4; --teal-dim: rgba(94,234,212,.12); --amber: #fbbf24; --amber-dim: rgba(251,191,36,.14);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
-      background: radial-gradient(900px 420px at 10% -10%, rgba(99,102,241,.28), transparent 55%),
-        radial-gradient(700px 380px at 110% 10%, rgba(45,212,191,.16), transparent 50%), var(--bg);
-      color: var(--text);
-    }
-    #gate { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
-    #gate.hidden { display: none; }
-    .gate-card { width: min(360px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px 24px; }
-    .gate-card h1 { margin: 0 0 8px; font-size: 22px; }
-    .gate-card p { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
-    .gate-card input {
-      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
-      background: #0b1020; color: var(--text); font-size: 15px; outline: none;
-    }
-    .gate-card button {
-      margin-top: 12px; width: 100%; padding: 12px; border: 0; border-radius: 12px;
-      background: #8b9cff; color: #0b1020; font-weight: 700; cursor: pointer;
-    }
-    .err { display: none; margin-top: 10px; color: #fda4af; font-size: 13px; }
-    #app { display: none; }
-    #app.show { display: block; }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
-    .kicker { color: var(--muted); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
-    h1 { margin: 6px 0 4px; font-size: 28px; letter-spacing: -.03em; }
-    .date { color: var(--muted); font-size: 15px; }
-    .chip { background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; font-size: 12px; color: var(--muted); }
-    .summary { display: grid; grid-template-columns: 1.4fr .7fr .7fr .7fr; gap: 12px; margin-bottom: 28px; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 18px; }
-    .label { font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
-    .value { margin-top: 8px; font-size: 18px; font-weight: 650; }
-    .sub { margin-top: 4px; color: var(--muted); font-size: 13px; }
-    section { margin-bottom: 22px; }
-    .proj { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; }
-    .dot.indigo { background: var(--indigo); box-shadow: 0 0 0 4px var(--indigo-dim); }
-    .dot.teal { background: var(--teal); box-shadow: 0 0 0 4px var(--teal-dim); }
-    .dot.amber { background: var(--amber); box-shadow: 0 0 0 4px var(--amber-dim); }
-    .proj h2 { margin: 0; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-    .event { display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 16px 18px; }
-    .event + .event, .task + .task { border-top: 1px solid var(--line); }
-    .time { font-variant-numeric: tabular-nums; font-weight: 650; }
-    .time span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
-    .title { font-size: 16px; font-weight: 650; }
-    .meta { margin-top: 6px; color: var(--muted); font-size: 13px; }
-    .meta a { color: var(--indigo); text-decoration: none; }
-    .task { display: flex; gap: 12px; padding: 14px 18px; }
-    .box { width: 16px; height: 16px; margin-top: 2px; border: 1.5px solid #6e7a99; border-radius: 4px; flex: 0 0 16px; }
-    footer { margin-top: 28px; color: #6e7a99; font-size: 12px; text-align: center; }
-    @media (max-width: 720px) { .summary { grid-template-columns: 1fr 1fr; } }
+    :root { --bg:#0b1020; --card:rgba(18,26,49,.9); --line:rgba(255,255,255,.08); --text:#eef2ff; --muted:#9aa6c4; --indigo:#8b9cff; --indigo-dim:rgba(139,156,255,.14); --teal:#5eead4; --teal-dim:rgba(94,234,212,.12); --amber:#fbbf24; --amber-dim:rgba(251,191,36,.14); }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(900px 420px at 10% -10%,rgba(99,102,241,.28),transparent 55%),radial-gradient(700px 380px at 110% 10%,rgba(45,212,191,.16),transparent 50%),var(--bg);color:var(--text)}
+    #gate{min-height:100vh;display:grid;place-items:center;padding:24px}
+    #gate.hidden{display:none}
+    .gate-card{width:min(380px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
+    .kicker{color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+    .gate-card h1{margin:8px 0;font-size:22px}
+    .gate-card p{margin:0 0 16px;color:var(--muted);font-size:14px}
+    input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0b1020;color:var(--text);font-size:15px}
+    button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:12px;background:#8b9cff;color:#0b1020;font-weight:700;cursor:pointer}
+    .err{display:none;margin-top:10px;color:#fda4af;font-size:13px}
+    .wrap{max-width:720px;margin:0 auto;padding:32px 20px 48px}
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+    h1{margin:6px 0 4px;font-size:28px;letter-spacing:-.03em}
+    .date{color:var(--muted);font-size:15px}
+    .chip{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--muted)}
+    .summary{display:grid;grid-template-columns:1.4fr .7fr .7fr .7fr;gap:12px;margin-bottom:28px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 18px}
+    .label{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+    .value{margin-top:8px;font-size:18px;font-weight:650}
+    .sub{margin-top:4px;color:var(--muted);font-size:13px}
+    section{margin-bottom:22px}
+    .proj{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .dot{width:8px;height:8px;border-radius:50%}
+    .dot.indigo{background:var(--indigo);box-shadow:0 0 0 4px var(--indigo-dim)}
+    .dot.teal{background:var(--teal);box-shadow:0 0 0 4px var(--teal-dim)}
+    .dot.amber{background:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
+    .proj h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .event{display:grid;grid-template-columns:92px 1fr;gap:14px;padding:16px 18px}
+    .event+.event,.task+.task{border-top:1px solid var(--line)}
+    .time{font-variant-numeric:tabular-nums;font-weight:650}
+    .time span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+    .title{font-size:16px;font-weight:650}
+    .meta{margin-top:6px;color:var(--muted);font-size:13px}
+    .meta a{color:var(--indigo);text-decoration:none}
+    .task{display:flex;gap:12px;padding:14px 18px}
+    .box{width:16px;height:16px;margin-top:2px;border:1.5px solid #6e7a99;border-radius:4px;flex:0 0 16px}
+    footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
+    @media(max-width:720px){.summary{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
   <div id="gate">
-    <form class="gate-card" onsubmit="return unlock(event)">
+    <form class="gate-card" onsubmit="return manual(event)">
       <div class="kicker">Secretaria</div>
-      <h1>Acceso</h1>
-      <p>Escribe la clave para ver el dashboard.</p>
-      <input id="pw" type="password" autocomplete="current-password" placeholder="Clave" />
-      <button type="submit">Entrar</button>
-      <div class="err" id="err">Clave incorrecta</div>
+      <h1>Desencriptar</h1>
+      <p>Pasa la clave en la URL (<code>#clave</code>) o escríbela aquí.</p>
+      <input id="pw" type="password" placeholder="Clave" />
+      <button type="submit">Abrir</button>
+      <div class="err" id="err">No se pudo desencriptar</div>
     </form>
   </div>
-  <div id="app">
-    <div class="wrap">
-      <header>
-        <div>
-          <div class="kicker">Secretaria</div>
-          <h1>Buenos días</h1>
-          <div class="date">Lunes 28 de septiembre de 2026</div>
-        </div>
-        <div class="chip"><b>2</b> eventos · <b>2</b> tareas</div>
-      </header>
-      <div class="summary">
-        <div class="card"><div class="label">Siguiente</div><div class="value">2:00 p. m.</div><div class="sub">Seguimiento migracion Colombia</div></div>
-        <div class="card"><div class="label">UT Efectiva</div><div class="value">1</div><div class="sub">evento</div></div>
-        <div class="card"><div class="label">Electrolineras</div><div class="value">1</div><div class="sub">evento</div></div>
-        <div class="card"><div class="label">Tareas</div><div class="value">2</div><div class="sub">abiertas</div></div>
-      </div>
-      <section>
-        <div class="proj"><span class="dot indigo"></span><h2>UT Efectiva</h2></div>
-        <div class="card">
-          <div class="event">
-            <div class="time">2:00 p. m.<span>3:00 p. m.</span></div>
-            <div>
-              <div class="title">Seguimiento migracion Colombia</div>
-              <div class="meta"><a href="https://meet.google.com/bix-zuvv-ukv">meet.google.com/bix-zuvv-ukv</a></div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="proj"><span class="dot teal"></span><h2>Electrolineras</h2></div>
-        <div class="card">
-          <div class="event">
-            <div class="time">5:00 p. m.<span>6:00 p. m.</span></div>
-            <div>
-              <div class="title">Reunion Electrolineras Robinson Marques</div>
-              <div class="meta">En mi casa</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="proj"><span class="dot amber"></span><h2>Energía Solar Casa · tareas</h2></div>
-        <div class="card">
-          <div class="task"><span class="box"></span><div class="title">Reunión con contador para estados financieros</div></div>
-          <div class="task"><span class="box"></span><div class="title">Conseguir cotización del proyecto firmada</div></div>
-        </div>
-      </section>
-      <footer>Dashboard secretaria</footer>
-    </div>
-  </div>
+  <div id="app"></div>
   <script>
-    const HASH = '5c22ae51b076aa76d5c2f41bc4fec5d122b7d755d484d7cced8e3c99a6a28b55';
-    async function sha(t) {
-      const b = new TextEncoder().encode(t);
-      const d = await crypto.subtle.digest('SHA-256', b);
-      return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2,'0')).join('');
+    const SALT = 'CAYo5AGORf55dJLu+woMuQ==';
+    const NONCE = 'DBJz20pd/Gh/cq62';
+    const CT = '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';
+    function b64(s){return Uint8Array.from(atob(s), c => c.charCodeAt(0))}
+    async function keyFrom(pw, salt){
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']);
     }
-    async function unlock(e) {
-      e.preventDefault();
-      const ok = await sha(document.getElementById('pw').value) === HASH;
-      if (!ok) { document.getElementById('err').style.display = 'block'; return false; }
-      sessionStorage.setItem('sec_ok', '1');
-      document.getElementById('gate').classList.add('hidden');
-      document.getElementById('app').classList.add('show');
-      return false;
+    async function decrypt(pw){
+      const key = await keyFrom(pw, b64(SALT));
+      const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(NONCE)}, key, b64(CT));
+      return new TextDecoder().decode(pt);
     }
-    if (sessionStorage.getItem('sec_ok') === '1') {
-      document.getElementById('gate').classList.add('hidden');
-      document.getElementById('app').classList.add('show');
+    async function openWith(pw){
+      try{
+        document.getElementById('app').innerHTML = await decrypt(pw);
+        document.getElementById('gate').classList.add('hidden');
+        history.replaceState(null,'', location.pathname + location.search + '#' + encodeURIComponent(pw));
+      }catch(e){
+        document.getElementById('err').style.display='block';
+      }
     }
+    function manual(e){ e.preventDefault(); openWith(document.getElementById('pw').value); return false; }
+    const fromUrl = decodeURIComponent((location.hash||'').replace(/^#/,'')) || new URLSearchParams(location.search).get('k');
+    if(fromUrl) openWith(fromUrl);
   </script>
 </body>
 </html>
