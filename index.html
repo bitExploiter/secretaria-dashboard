@@ -20,12 +20,12 @@
     #dash{display:none}
     #dash.show{display:block}
     .wrap{max-width:720px;margin:0 auto;padding:32px 20px 48px}
-    .clocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:22px}
+    .clocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0 0 22px}
     .clock{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 14px;text-align:center}
     .clock .city{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-    .clock .hh{margin-top:8px;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+    .clock .hh{margin-top:8px;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
     .clock .dd{margin-top:4px;font-size:12px;color:var(--muted)}
-    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
     h1{margin:6px 0 4px;font-size:28px;letter-spacing:-.03em}
     .date{color:var(--muted);font-size:15px}
     .chip{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--muted)}
@@ -51,7 +51,7 @@
     .task{display:flex;gap:12px;padding:14px 18px}
     .box{width:16px;height:16px;margin-top:2px;border:1.5px solid #6e7a99;border-radius:4px;flex:0 0 16px}
     footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
-    @media(max-width:720px){.summary{grid-template-columns:1fr 1fr}.clock .hh{font-size:22px}}
+    @media(max-width:720px){.summary{grid-template-columns:1fr 1fr}.clock .hh{font-size:20px}}
   </style>
 </head>
 <body>
@@ -66,15 +66,15 @@
     </form>
   </div>
   <div id="dash">
-    <div class="wrap">
-      <div class="clocks">
-        <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--</div><div class="dd" id="d-co"></div></div>
-        <div class="clock"><div class="city">Múnich</div><div class="hh" id="t-mu">--:--</div><div class="dd" id="d-mu"></div></div>
-        <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--</div><div class="dd" id="d-hk"></div></div>
-      </div>
-      <div id="app"></div>
-    </div>
+    <div class="wrap" id="app"></div>
   </div>
+  <template id="clocks-tpl">
+    <div class="clocks">
+      <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--</div><div class="dd" id="d-co"></div></div>
+      <div class="clock"><div class="city">Múnich</div><div class="hh" id="t-mu">--:--</div><div class="dd" id="d-mu"></div></div>
+      <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--</div><div class="dd" id="d-hk"></div></div>
+    </div>
+  </template>
   <script>
     const SALT = 'CAYo5AGORf55dJLu+woMuQ==';
     const NONCE = 'DBJz20pd/Gh/cq62';
@@ -93,17 +93,25 @@
       const zones = [['t-co','d-co','America/Bogota'],['t-mu','d-mu','Europe/Berlin'],['t-hk','d-hk','Asia/Hong_Kong']];
       const now = new Date();
       for (const [tid, did, tz] of zones) {
-        document.getElementById(tid).textContent = now.toLocaleTimeString('es-CO', {timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
+        const el = document.getElementById(tid);
+        if(!el) return;
+        el.textContent = now.toLocaleTimeString('es-CO', {timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: true});
         document.getElementById(did).textContent = now.toLocaleDateString('es-CO', {timeZone: tz, weekday: 'short', day: 'numeric', month: 'short'});
       }
     }
     async function openWith(pw){
       try{
-        document.getElementById('app').innerHTML = await decrypt(pw);
+        const app = document.getElementById('app');
+        const raw = await decrypt(pw);
+        const inner = raw.replace(/^\s*<div class="wrap">/i,'').replace(/<\/div>\s*$/i,'');
+        app.innerHTML = inner;
+        const header = app.querySelector('header');
+        const clocks = document.getElementById('clocks-tpl').content.cloneNode(true);
+        if(header) header.after(clocks); else app.prepend(clocks);
         document.getElementById('gate').classList.add('hidden');
         document.getElementById('dash').classList.add('show');
         tick();
-        setInterval(tick, 1000);
+        setInterval(tick, 15000);
         history.replaceState(null,'', location.pathname + location.search + '#' + encodeURIComponent(pw));
       }catch(e){
         document.getElementById('err').style.display='block';
