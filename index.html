@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Secretaria</title>
 <style>
-:root{--bg:#0b1020;--card:rgba(18,26,49,.9);--line:rgba(255,255,255,.08);--text:#eef2ff;--muted:#9aa6c4;--indigo:#8b9cff;--indigo-dim:rgba(139,156,255,.14);--amber:#fbbf24;--amber-dim:rgba(251,191,36,.14)}
+:root{--bg:#0b1020;--card:rgba(18,26,49,.9);--line:rgba(255,255,255,.08);--text:#eef2ff;--muted:#9aa6c4;--indigo:#8b9cff;--indigo-dim:rgba(139,156,255,.14);--teal:#5eead4;--teal-dim:rgba(94,234,212,.12);--amber:#fbbf24;--amber-dim:rgba(251,191,36,.14)}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(900px 420px at 10% -10%,rgba(99,102,241,.28),transparent 55%),radial-gradient(700px 380px at 110% 10%,rgba(45,212,191,.16),transparent 50%),var(--bg);color:var(--text)}
 #gate{min-height:100vh;display:grid;place-items:center;padding:24px}
@@ -35,6 +35,7 @@ section{margin-bottom:22px}
 .proj{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .dot{width:8px;height:8px;border-radius:50%}
 .dot.indigo{background:var(--indigo);box-shadow:0 0 0 4px var(--indigo-dim)}
+.dot.teal{background:var(--teal);box-shadow:0 0 0 4px var(--teal-dim)}
 .dot.amber{background:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
 .proj h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .event,.task{display:grid;grid-template-columns:100px 1fr;gap:14px;padding:16px 18px}
@@ -67,7 +68,7 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
       <h1>Buenos días</h1>
       <div class="date">Martes 29 de septiembre de 2026</div>
     </div>
-    <div class="chip"><b>1</b> evento · <b>2</b> tareas</div>
+    <div class="chip"><b>1</b> evento · <b>4</b> tareas</div>
   </header>
   <div class="clocks">
     <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--</div><div class="dd" id="d-co"></div></div>
@@ -76,7 +77,7 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
   <div class="summary">
     <div class="card"><div class="label">Siguiente</div><div class="value">8:30 p. m.</div><div class="sub">Reunion con Felix de Tikki</div></div>
     <div class="card"><div class="label">Tikki</div><div class="value">1</div><div class="sub">evento</div></div>
-    <div class="card"><div class="label">Tareas</div><div class="value">2</div><div class="sub">abiertas</div></div>
+    <div class="card"><div class="label">Tareas</div><div class="value">4</div><div class="sub">abiertas</div></div>
   </div>
   <section>
     <div class="proj"><span class="dot indigo"></span><h2>Tikki</h2></div>
@@ -88,10 +89,31 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
     </div>
   </section>
   <section>
+    <div class="proj"><span class="dot indigo"></span><h2>Valledupar · tareas</h2></div>
+    <div class="card">
+      <div class="task"><span class="box"></span><div><div class="title">Presupuesto de centros poblados de Valledupar</div><div class="meta">Para mañana</div></div></div>
+    </div>
+  </section>
+  <section>
+    <div class="proj"><span class="dot teal"></span><h2>Electrolineras · tareas</h2></div>
+    <div class="card">
+      <div class="task"><span class="box"></span><div><div class="title">Pedir recibo de tres últimos meses y explorar consumo energético de estación de servicio</div></div></div>
+    </div>
+  </section>
+  <section>
     <div class="proj"><span class="dot amber"></span><h2>Energía Solar Casa · tareas</h2></div>
     <div class="card">
       <div class="task"><span class="box"></span><div class="title">Reunión con contador para estados financieros</div></div>
       <div class="task"><span class="box"></span><div class="title">Conseguir cotización del proyecto firmada</div></div>
+    </div>
+  </section>
+  <section>
+    <div class="proj"><span class="dot indigo"></span><h2>Próximo · jueves 1 oct</h2></div>
+    <div class="card">
+      <div class="event">
+        <div class="time">12:00 p. m.<span>12:30 p. m.</span></div>
+        <div><div class="title">Llamar a Rómulo para reunión</div><div class="meta">Hora Colombia</div></div>
+      </div>
     </div>
   </section>
   <footer>Dashboard secretaria</footer>
