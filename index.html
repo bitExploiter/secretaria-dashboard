@@ -17,7 +17,7 @@ button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:12px;backg
 .err{display:none;margin-top:10px;color:#fda4af;font-size:13px}
 #dash{display:none;max-width:720px;margin:0 auto;padding:32px 20px 48px}
 #dash.show{display:block}
-.clocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0 0 22px}
+.clocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 22px}
 .clock,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 14px}
 .clock{text-align:center}
 .clock .city{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -71,7 +71,6 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
   </header>
   <div class="clocks">
     <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--</div><div class="dd" id="d-co"></div></div>
-    <div class="clock"><div class="city">Múnich</div><div class="hh" id="t-mu">--:--</div><div class="dd" id="d-mu"></div></div>
     <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--</div><div class="dd" id="d-hk"></div></div>
   </div>
   <div class="summary">
@@ -101,7 +100,7 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
 const HASH='5c22ae51b076aa76d5c2f41bc4fec5d122b7d755d484d7cced8e3c99a6a28b55';
 async function sha(t){const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 function tick(){
-  const z=[['t-co','d-co','America/Bogota'],['t-mu','d-mu','Europe/Berlin'],['t-hk','d-hk','Asia/Hong_Kong']];
+  const z=[['t-co','d-co','America/Bogota'],['t-hk','d-hk','Asia/Hong_Kong']];
   const now=new Date();
   for(const [a,b,tz] of z){
     document.getElementById(a).textContent=now.toLocaleTimeString('es-CO',{timeZone:tz,hour:'numeric',minute:'2-digit',hour12:true});
