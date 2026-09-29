@@ -3,51 +3,156 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Secretaria</title>
+<title>Secretaria · Dashboard</title>
 <style>
-:root{--bg:#0b1020;--card:rgba(18,26,49,.9);--line:rgba(255,255,255,.08);--text:#eef2ff;--muted:#9aa6c4;--indigo:#8b9cff;--indigo-dim:rgba(139,156,255,.14);--teal:#5eead4;--teal-dim:rgba(94,234,212,.12);--amber:#fbbf24;--amber-dim:rgba(251,191,36,.14)}
+:root{
+  --bg:#070b16;
+  --card:rgba(16,24,48,.92);
+  --line:rgba(255,255,255,.09);
+  --text:#eef2ff;
+  --muted:#94a3b8;
+  --indigo:#818cf8;
+  --indigo-dim:rgba(129,140,248,.15);
+  --teal:#2dd4bf;
+  --teal-dim:rgba(45,212,191,.14);
+  --amber:#fbbf24;
+  --amber-dim:rgba(251,191,36,.14);
+  --rose:#fb7185;
+  --rose-dim:rgba(251,113,133,.12);
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(900px 420px at 10% -10%,rgba(99,102,241,.28),transparent 55%),radial-gradient(700px 380px at 110% 10%,rgba(45,212,191,.16),transparent 50%),var(--bg);color:var(--text)}
+body{
+  margin:0;min-height:100vh;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:
+    radial-gradient(1000px 500px at 8% -15%,rgba(99,102,241,.22),transparent 55%),
+    radial-gradient(800px 420px at 105% 5%,rgba(45,212,191,.12),transparent 50%),
+    radial-gradient(600px 300px at 50% 110%,rgba(251,191,36,.06),transparent 45%),
+    var(--bg);
+  color:var(--text);
+}
 #gate{min-height:100vh;display:grid;place-items:center;padding:24px}
 #gate.hidden{display:none}
-.gate-card{width:min(380px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
-.kicker{color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
-input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0b1020;color:var(--text)}
-button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:12px;background:#8b9cff;color:#0b1020;font-weight:700;cursor:pointer}
-.err{display:none;margin-top:10px;color:#fda4af;font-size:13px}
-#dash{display:none;max-width:720px;margin:0 auto;padding:32px 20px 48px}
+.gate-card{
+  width:min(400px,100%);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:32px 28px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,.5);
+}
+.kicker{color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.gate-card h1{margin:10px 0 6px;font-size:26px;letter-spacing:-.03em}
+.gate-card p{color:var(--muted);font-size:14px;margin:0 0 18px;line-height:1.5}
+input{
+  width:100%;padding:13px 16px;border-radius:12px;
+  border:1px solid var(--line);background:#0a0f1e;color:var(--text);
+  font-size:15px;outline:none;transition:border .2s;
+}
+input:focus{border-color:var(--indigo)}
+button{
+  margin-top:14px;width:100%;padding:13px;border:0;border-radius:12px;
+  background:linear-gradient(135deg,#818cf8,#6366f1);color:#0b1020;
+  font-weight:700;font-size:15px;cursor:pointer;transition:opacity .2s;
+}
+button:hover{opacity:.92}
+.err{display:none;margin-top:12px;color:#fda4af;font-size:13px;text-align:center}
+
+#dash{display:none;max-width:860px;margin:0 auto;padding:28px 20px 56px}
 #dash.show{display:block}
-.clocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 22px}
-.clock,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 14px}
-.clock{text-align:center}
-.clock .city{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.clock .hh{margin-top:8px;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
-.clock .dd{margin-top:4px;font-size:12px;color:var(--muted)}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
-h1{margin:6px 0 4px;font-size:28px;letter-spacing:-.03em}
+
+/* Relojes — PRIMERA fila, 3 columnas */
+.clocks{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+  margin:0 0 28px;
+}
+.clock{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px 12px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.clock::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(129,140,248,.06),transparent 60%);
+  pointer-events:none;
+}
+.clock .city{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;position:relative;
+}
+.clock .hh{
+  margin-top:10px;font-size:28px;font-weight:700;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  position:relative;
+}
+.clock .dd{
+  margin-top:6px;font-size:12px;color:var(--muted);position:relative;
+}
+
+header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:16px;margin-bottom:22px;flex-wrap:wrap;
+}
+h1{margin:6px 0 4px;font-size:30px;letter-spacing:-.03em;font-weight:700}
 .date{color:var(--muted);font-size:15px}
-.chip{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--muted)}
-.summary{display:grid;grid-template-columns:1.6fr .7fr .7fr;gap:12px;margin-bottom:28px}
-.label{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
-.value{margin-top:8px;font-size:18px;font-weight:650}
+.chip{
+  background:rgba(255,255,255,.05);border:1px solid var(--line);
+  border-radius:999px;padding:9px 14px;font-size:13px;color:var(--muted);
+  white-space:nowrap;
+}
+.chip b{color:var(--text)}
+
+.summary{
+  display:grid;grid-template-columns:1.5fr .8fr .8fr;gap:12px;margin-bottom:30px;
+}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;
+}
+.label{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.value{margin-top:8px;font-size:20px;font-weight:700}
 .sub{margin-top:4px;color:var(--muted);font-size:13px}
-section{margin-bottom:22px}
-.proj{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.dot{width:8px;height:8px;border-radius:50%}
+
+section{margin-bottom:24px}
+.proj{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .dot.indigo{background:var(--indigo);box-shadow:0 0 0 4px var(--indigo-dim)}
 .dot.teal{background:var(--teal);box-shadow:0 0 0 4px var(--teal-dim)}
 .dot.amber{background:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
-.proj h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.event,.task{display:grid;grid-template-columns:100px 1fr;gap:14px;padding:16px 18px}
-.task{grid-template-columns:22px 1fr}
+.dot.rose{background:var(--rose);box-shadow:0 0 0 4px var(--rose-dim)}
+.proj h2{
+  margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+}
+.event,.task{
+  display:grid;grid-template-columns:110px 1fr;gap:14px;padding:16px 18px;
+}
+.task{grid-template-columns:24px 1fr}
 .event+.event,.task+.task{border-top:1px solid var(--line)}
-.time{font-variant-numeric:tabular-nums;font-weight:650}
-.time span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.title{font-size:16px;font-weight:650}
-.meta{margin-top:6px;color:var(--muted);font-size:13px}
-.box{width:16px;height:16px;margin-top:2px;border:1.5px solid #6e7a99;border-radius:4px}
-footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
-@media(max-width:720px){.summary{grid-template-columns:1fr}.clock .hh{font-size:20px}}
+.time{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
+.time span{display:block;color:var(--muted);font-size:12px;margin-top:3px;font-weight:500}
+.title{font-size:16px;font-weight:650;line-height:1.35}
+.meta{margin-top:5px;color:var(--muted);font-size:13px}
+.box{
+  width:17px;height:17px;margin-top:2px;border:1.5px solid #64748b;
+  border-radius:5px;flex-shrink:0;
+}
+.empty{
+  padding:20px 18px;color:var(--muted);font-size:14px;text-align:center;
+}
+footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
+
+@media(max-width:720px){
+  .clocks{grid-template-columns:1fr;gap:10px}
+  .clock .hh{font-size:24px}
+  .summary{grid-template-columns:1fr}
+  .event{grid-template-columns:90px 1fr}
+}
 </style>
 </head>
 <body>
@@ -55,89 +160,154 @@ footer{margin-top:28px;color:#6e7a99;font-size:12px;text-align:center}
   <form class="gate-card" onsubmit="return manual(event)">
     <div class="kicker">Secretaria</div>
     <h1>Acceso</h1>
-    <p style="color:#9aa6c4;font-size:14px">Clave en la URL o aquí.</p>
-    <input id="pw" type="password" placeholder="Clave"/>
-    <button type="submit">Abrir</button>
+    <p>Introduce la clave o usa el enlace con hash.</p>
+    <input id="pw" type="password" placeholder="Clave" autocomplete="off"/>
+    <button type="submit">Abrir dashboard</button>
     <div class="err" id="err">Clave incorrecta</div>
   </form>
 </div>
+
 <div id="dash">
+  <!-- RELOJES EN VIVO — primera fila, 3 columnas, fuera de cualquier cifrado -->
+  <div class="clocks">
+    <div class="clock">
+      <div class="city">Colombia</div>
+      <div class="hh" id="t-co">--:--:--</div>
+      <div class="dd" id="d-co"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Múnich</div>
+      <div class="hh" id="t-mu">--:--:--</div>
+      <div class="dd" id="d-mu"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Hong Kong</div>
+      <div class="hh" id="t-hk">--:--:--</div>
+      <div class="dd" id="d-hk"></div>
+    </div>
+  </div>
+
   <header>
     <div>
       <div class="kicker">Secretaria</div>
       <h1>Buenos días</h1>
       <div class="date">Martes 29 de septiembre de 2026</div>
     </div>
-    <div class="chip"><b>1</b> evento · <b>4</b> tareas</div>
+    <div class="chip"><b>1</b> evento · <b>2</b> tareas</div>
   </header>
-  <div class="clocks">
-    <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--</div><div class="dd" id="d-co"></div></div>
-    <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--</div><div class="dd" id="d-hk"></div></div>
-  </div>
+
   <div class="summary">
-    <div class="card"><div class="label">Siguiente</div><div class="value">8:30 p. m.</div><div class="sub">Reunion con Felix de Tikki</div></div>
-    <div class="card"><div class="label">Tikki</div><div class="value">1</div><div class="sub">evento</div></div>
-    <div class="card"><div class="label">Tareas</div><div class="value">4</div><div class="sub">abiertas</div></div>
+    <div class="card">
+      <div class="label">Siguiente</div>
+      <div class="value">20:30</div>
+      <div class="sub">Reunión con Felix de Tikki</div>
+    </div>
+    <div class="card">
+      <div class="label">Eventos hoy</div>
+      <div class="value">1</div>
+      <div class="sub">en calendario</div>
+    </div>
+    <div class="card">
+      <div class="label">Tareas</div>
+      <div class="value">2</div>
+      <div class="sub">abiertas</div>
+    </div>
   </div>
+
+  <!-- Calendario agrupado por proyecto -->
   <section>
-    <div class="proj"><span class="dot indigo"></span><h2>Tikki</h2></div>
+    <div class="proj"><span class="dot indigo"></span><h2>Sin proyecto</h2></div>
     <div class="card">
       <div class="event">
-        <div class="time">8:30 p. m.<span>9:30 p. m.</span></div>
-        <div><div class="title">Reunion con Felix de Tikki</div><div class="meta">Hora Colombia</div></div>
+        <div class="time">20:30<span>21:30</span></div>
+        <div>
+          <div class="title">Reunión con Felix de Tikki</div>
+          <div class="meta">Hora Colombia · hoy</div>
+        </div>
       </div>
     </div>
   </section>
-  <section>
-    <div class="proj"><span class="dot indigo"></span><h2>Valledupar · tareas</h2></div>
-    <div class="card">
-      <div class="task"><span class="box"></span><div><div class="title">Presupuesto de centros poblados de Valledupar</div><div class="meta">Para mañana</div></div></div>
-    </div>
-  </section>
-  <section>
-    <div class="proj"><span class="dot teal"></span><h2>Electrolineras · tareas</h2></div>
-    <div class="card">
-      <div class="task"><span class="box"></span><div><div class="title">Pedir recibo de tres últimos meses y explorar consumo energético de estación de servicio</div></div></div>
-    </div>
-  </section>
+
   <section>
     <div class="proj"><span class="dot amber"></span><h2>Energía Solar Casa · tareas</h2></div>
     <div class="card">
-      <div class="task"><span class="box"></span><div class="title">Reunión con contador para estados financieros</div></div>
-      <div class="task"><span class="box"></span><div class="title">Conseguir cotización del proyecto firmada</div></div>
-    </div>
-  </section>
-  <section>
-    <div class="proj"><span class="dot indigo"></span><h2>Próximo · jueves 1 oct</h2></div>
-    <div class="card">
-      <div class="event">
-        <div class="time">12:00 p. m.<span>12:30 p. m.</span></div>
-        <div><div class="title">Llamar a Rómulo para reunión</div><div class="meta">Hora Colombia</div></div>
+      <div class="task">
+        <span class="box"></span>
+        <div><div class="title">Reunión con contador para estados financieros</div></div>
+      </div>
+      <div class="task">
+        <span class="box"></span>
+        <div><div class="title">Conseguir cotización del proyecto firmada</div></div>
       </div>
     </div>
   </section>
-  <footer>Dashboard secretaria</footer>
+
+  <section>
+    <div class="proj"><span class="dot teal"></span><h2>Electrolineras</h2></div>
+    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
+  </section>
+
+  <section>
+    <div class="proj"><span class="dot rose"></span><h2>UT Efectiva</h2></div>
+    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
+  </section>
+
+  <footer>Dashboard secretaria · actualizado 29 sep 2026</footer>
 </div>
+
 <script>
-const HASH='5c22ae51b076aa76d5c2f41bc4fec5d122b7d755d484d7cced8e3c99a6a28b55';
-async function sha(t){const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-function tick(){
-  const z=[['t-co','d-co','America/Bogota'],['t-hk','d-hk','Asia/Hong_Kong']];
-  const now=new Date();
-  for(const [a,b,tz] of z){
-    document.getElementById(a).textContent=now.toLocaleTimeString('es-CO',{timeZone:tz,hour:'numeric',minute:'2-digit',hour12:true});
-    document.getElementById(b).textContent=now.toLocaleDateString('es-CO',{timeZone:tz,weekday:'short',day:'numeric',month:'short'});
+const HASH = '5c22ae51b076aa76d5c2f41bc4fec5d122b7d755d484d7cced8e3c99a6a28b55';
+
+async function sha(t) {
+  const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function tick() {
+  const zones = [
+    ['t-co', 'd-co', 'America/Bogota'],
+    ['t-mu', 'd-mu', 'Europe/Berlin'],
+    ['t-hk', 'd-hk', 'Asia/Hong_Kong']
+  ];
+  const now = new Date();
+  for (const [tid, did, tz] of zones) {
+    document.getElementById(tid).textContent = now.toLocaleTimeString('es-CO', {
+      timeZone: tz,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    document.getElementById(did).textContent = now.toLocaleDateString('es-CO', {
+      timeZone: tz,
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short'
+    });
   }
 }
-async function openWith(pw){
-  if(await sha(pw)!==HASH){document.getElementById('err').style.display='block';return}
+
+async function openWith(pw) {
+  if (await sha(pw) !== HASH) {
+    document.getElementById('err').style.display = 'block';
+    return;
+  }
   document.getElementById('gate').classList.add('hidden');
   document.getElementById('dash').classList.add('show');
-  tick(); setInterval(tick,15000);
-  history.replaceState(null,'',location.pathname+'#'+encodeURIComponent(pw));
+  tick();
+  setInterval(tick, 1000);
+  history.replaceState(null, '', location.pathname + '#' + encodeURIComponent(pw));
 }
-function manual(e){e.preventDefault();openWith(document.getElementById('pw').value);return false}
-const u=decodeURIComponent((location.hash||'').replace(/^#/,''))||new URLSearchParams(location.search).get('k');
-if(u) openWith(u);
+
+function manual(e) {
+  e.preventDefault();
+  openWith(document.getElementById('pw').value);
+  return false;
+}
+
+const u = decodeURIComponent((location.hash || '').replace(/^#/, '')) ||
+  new URLSearchParams(location.search).get('k');
+if (u) openWith(u);
 </script>
-</body></html>
+</body>
+</html>
