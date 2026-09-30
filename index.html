@@ -61,7 +61,6 @@ button:hover{opacity:.92}
 #dash{display:none;max-width:860px;margin:0 auto;padding:28px 20px 56px}
 #dash.show{display:block}
 
-/* Relojes — PRIMERA fila, 3 columnas */
 .clocks{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -168,7 +167,6 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
 </div>
 
 <div id="dash">
-  <!-- RELOJES EN VIVO — primera fila, 3 columnas, fuera de cualquier cifrado -->
   <div class="clocks">
     <div class="clock">
       <div class="city">Colombia</div>
@@ -191,20 +189,20 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
     <div>
       <div class="kicker">Secretaria</div>
       <h1>Buenos días</h1>
-      <div class="date">Martes 29 de septiembre de 2026</div>
+      <div class="date">Miércoles 30 de septiembre de 2026</div>
     </div>
-    <div class="chip"><b>1</b> evento · <b>2</b> tareas</div>
+    <div class="chip"><b>0</b> eventos · <b>2</b> tareas</div>
   </header>
 
   <div class="summary">
     <div class="card">
       <div class="label">Siguiente</div>
-      <div class="value">20:30</div>
-      <div class="sub">Reunión con Felix de Tikki</div>
+      <div class="value">Agenda libre</div>
+      <div class="sub">Sin eventos en Outlook hoy</div>
     </div>
     <div class="card">
       <div class="label">Eventos hoy</div>
-      <div class="value">1</div>
+      <div class="value">0</div>
       <div class="sub">en calendario</div>
     </div>
     <div class="card">
@@ -214,18 +212,9 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
     </div>
   </div>
 
-  <!-- Calendario agrupado por proyecto -->
   <section>
     <div class="proj"><span class="dot indigo"></span><h2>Sin proyecto</h2></div>
-    <div class="card">
-      <div class="event">
-        <div class="time">20:30<span>21:30</span></div>
-        <div>
-          <div class="title">Reunión con Felix de Tikki</div>
-          <div class="meta">Hora Colombia · hoy</div>
-        </div>
-      </div>
-    </div>
+    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
   </section>
 
   <section>
@@ -252,7 +241,7 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
     <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
   </section>
 
-  <footer>Dashboard secretaria · actualizado 29 sep 2026</footer>
+  <footer>Dashboard secretaria · actualizado 30 sep 2026</footer>
 </div>
 
 <script>
