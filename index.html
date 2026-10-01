@@ -31,41 +31,12 @@ body{
     var(--bg);
   color:var(--text);
 }
-#gate{min-height:100vh;display:grid;place-items:center;padding:24px}
-#gate.hidden{display:none}
-.gate-card{
-  width:min(400px,100%);
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:32px 28px;
-  box-shadow:0 25px 50px -12px rgba(0,0,0,.5);
-}
-.kicker{color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
-.gate-card h1{margin:10px 0 6px;font-size:26px;letter-spacing:-.03em}
-.gate-card p{color:var(--muted);font-size:14px;margin:0 0 18px;line-height:1.5}
-input{
-  width:100%;padding:13px 16px;border-radius:12px;
-  border:1px solid var(--line);background:#0a0f1e;color:var(--text);
-  font-size:15px;outline:none;transition:border .2s;
-}
-input:focus{border-color:var(--indigo)}
-button{
-  margin-top:14px;width:100%;padding:13px;border:0;border-radius:12px;
-  background:linear-gradient(135deg,#818cf8,#6366f1);color:#0b1020;
-  font-weight:700;font-size:15px;cursor:pointer;transition:opacity .2s;
-}
-button:hover{opacity:.92}
-.err{display:none;margin-top:12px;color:#fda4af;font-size:13px;text-align:center}
-
-#dash{display:none;max-width:860px;margin:0 auto;padding:28px 20px 56px}
-#dash.show{display:block}
-
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 56px}
 .clocks{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   gap:14px;
-  margin:0 0 28px;
+  margin:0 0 22px;
 }
 .clock{
   background:var(--card);
@@ -90,33 +61,18 @@ button:hover{opacity:.92}
   font-variant-numeric:tabular-nums;letter-spacing:.02em;
   position:relative;
 }
-.clock .dd{
-  margin-top:6px;font-size:12px;color:var(--muted);position:relative;
-}
-
-header{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  gap:16px;margin-bottom:22px;flex-wrap:wrap;
-}
+.clock .dd{margin-top:6px;font-size:12px;color:var(--muted);position:relative}
+.kicker{color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
 h1{margin:6px 0 4px;font-size:30px;letter-spacing:-.03em;font-weight:700}
 .date{color:var(--muted);font-size:15px}
-.chip{
-  background:rgba(255,255,255,.05);border:1px solid var(--line);
-  border-radius:999px;padding:9px 14px;font-size:13px;color:var(--muted);
-  white-space:nowrap;
-}
+.chip{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13px;color:var(--muted);white-space:nowrap}
 .chip b{color:var(--text)}
-
-.summary{
-  display:grid;grid-template-columns:1.5fr .8fr .8fr;gap:12px;margin-bottom:30px;
-}
-.card{
-  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;
-}
+.summary{display:grid;grid-template-columns:1.5fr .8fr .8fr;gap:12px;margin-bottom:30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
 .label{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
 .value{margin-top:8px;font-size:20px;font-weight:700}
 .sub{margin-top:4px;color:var(--muted);font-size:13px}
-
 section{margin-bottom:24px}
 .proj{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
@@ -124,28 +80,24 @@ section{margin-bottom:24px}
 .dot.teal{background:var(--teal);box-shadow:0 0 0 4px var(--teal-dim)}
 .dot.amber{background:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
 .dot.rose{background:var(--rose);box-shadow:0 0 0 4px var(--rose-dim)}
-.proj h2{
-  margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);font-weight:600;
-}
-.event,.task{
-  display:grid;grid-template-columns:110px 1fr;gap:14px;padding:16px 18px;
-}
+.proj h2{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.event,.task{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:16px 18px}
 .task{grid-template-columns:24px 1fr}
 .event+.event,.task+.task{border-top:1px solid var(--line)}
 .time{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
 .time span{display:block;color:var(--muted);font-size:12px;margin-top:3px;font-weight:500}
 .title{font-size:16px;font-weight:650;line-height:1.35}
 .meta{margin-top:5px;color:var(--muted);font-size:13px}
-.box{
-  width:17px;height:17px;margin-top:2px;border:1.5px solid #64748b;
-  border-radius:5px;flex-shrink:0;
-}
-.empty{
-  padding:20px 18px;color:var(--muted);font-size:14px;text-align:center;
-}
+.box{width:17px;height:17px;margin-top:2px;border:1.5px solid #64748b;border-radius:5px}
+.empty{padding:20px 18px;color:var(--muted);font-size:14px;text-align:center}
 footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
-
+.lock{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+  display:flex;gap:10px;align-items:center;
+}
+.lock input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0a0f1e;color:var(--text);font-size:15px;outline:none}
+.lock button{padding:12px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#818cf8,#6366f1);color:#0b1020;font-weight:700;cursor:pointer}
+.err{display:none;color:#fda4af;font-size:13px;margin-top:10px}
 @media(max-width:720px){
   .clocks{grid-template-columns:1fr;gap:10px}
   .clock .hh{font-size:24px}
@@ -155,18 +107,7 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
-<div id="gate">
-  <form class="gate-card" onsubmit="return manual(event)">
-    <div class="kicker">Secretaria</div>
-    <h1>Acceso</h1>
-    <p>Introduce la clave o usa el enlace con hash.</p>
-    <input id="pw" type="password" placeholder="Clave" autocomplete="off"/>
-    <button type="submit">Abrir dashboard</button>
-    <div class="err" id="err">Clave incorrecta</div>
-  </form>
-</div>
-
-<div id="dash">
+<div class="wrap">
   <div class="clocks">
     <div class="clock">
       <div class="city">Colombia</div>
@@ -184,118 +125,64 @@ footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
       <div class="dd" id="d-hk"></div>
     </div>
   </div>
-
-  <header>
-    <div>
-      <div class="kicker">Secretaria</div>
-      <h1>Buenos días</h1>
-      <div class="date">Miércoles 30 de septiembre de 2026</div>
-    </div>
-    <div class="chip"><b>0</b> eventos · <b>2</b> tareas</div>
-  </header>
-
-  <div class="summary">
-    <div class="card">
-      <div class="label">Siguiente</div>
-      <div class="value">Agenda libre</div>
-      <div class="sub">Sin eventos en Outlook hoy</div>
-    </div>
-    <div class="card">
-      <div class="label">Eventos hoy</div>
-      <div class="value">0</div>
-      <div class="sub">en calendario</div>
-    </div>
-    <div class="card">
-      <div class="label">Tareas</div>
-      <div class="value">2</div>
-      <div class="sub">abiertas</div>
-    </div>
+  <div id="locked">
+    <div class="kicker">Secretaria</div>
+    <h1 style="margin:8px 0 14px">Agenda protegida</h1>
+    <form class="lock" onsubmit="return manual(event)">
+      <input id="pw" type="password" placeholder="Clave" autocomplete="off"/>
+      <button type="submit">Abrir</button>
+    </form>
+    <div class="err" id="err">Clave incorrecta</div>
   </div>
-
-  <section>
-    <div class="proj"><span class="dot indigo"></span><h2>Sin proyecto</h2></div>
-    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
-  </section>
-
-  <section>
-    <div class="proj"><span class="dot amber"></span><h2>Energía Solar Casa · tareas</h2></div>
-    <div class="card">
-      <div class="task">
-        <span class="box"></span>
-        <div><div class="title">Reunión con contador para estados financieros</div></div>
-      </div>
-      <div class="task">
-        <span class="box"></span>
-        <div><div class="title">Conseguir cotización del proyecto firmada</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="proj"><span class="dot teal"></span><h2>Electrolineras</h2></div>
-    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
-  </section>
-
-  <section>
-    <div class="proj"><span class="dot rose"></span><h2>UT Efectiva</h2></div>
-    <div class="card"><div class="empty">Sin eventos ni tareas abiertas hoy</div></div>
-  </section>
-
-  <footer>Dashboard secretaria · actualizado 30 sep 2026</footer>
+  <div id="agenda" style="display:none"></div>
 </div>
-
 <script>
-const HASH = '5c22ae51b076aa76d5c2f41bc4fec5d122b7d755d484d7cced8e3c99a6a28b55';
-
-async function sha(t) {
-  const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
-  return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2, '0')).join('');
-}
-
-function tick() {
+const BLOB = "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";
+function tick(){
   const zones = [
-    ['t-co', 'd-co', 'America/Bogota'],
-    ['t-mu', 'd-mu', 'Europe/Berlin'],
-    ['t-hk', 'd-hk', 'Asia/Hong_Kong']
+    ["t-co","d-co","America/Bogota"],
+    ["t-mu","d-mu","Europe/Berlin"],
+    ["t-hk","d-hk","Asia/Hong_Kong"]
   ];
   const now = new Date();
-  for (const [tid, did, tz] of zones) {
-    document.getElementById(tid).textContent = now.toLocaleTimeString('es-CO', {
-      timeZone: tz,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
+  for (const [tid,did,tz] of zones){
+    document.getElementById(tid).textContent = now.toLocaleTimeString("es-CO",{
+      timeZone:tz, hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
     });
-    document.getElementById(did).textContent = now.toLocaleDateString('es-CO', {
-      timeZone: tz,
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short'
+    document.getElementById(did).textContent = now.toLocaleDateString("es-CO",{
+      timeZone:tz, weekday:"short", day:"numeric", month:"short"
     });
   }
 }
+tick();
+setInterval(tick, 1000);
 
-async function openWith(pw) {
-  if (await sha(pw) !== HASH) {
-    document.getElementById('err').style.display = 'block';
-    return;
-  }
-  document.getElementById('gate').classList.add('hidden');
-  document.getElementById('dash').classList.add('show');
-  tick();
-  setInterval(tick, 1000);
-  history.replaceState(null, '', location.pathname + '#' + encodeURIComponent(pw));
+function b64ToBytes(b64){
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
 }
-
-function manual(e) {
+async function openWith(pw){
+  try{
+    const rawKey = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw));
+    const key = await crypto.subtle.importKey("raw", rawKey, "AES-GCM", false, ["decrypt"]);
+    const raw = b64ToBytes(BLOB);
+    const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv: raw.slice(0,12)}, key, raw.slice(12));
+    document.getElementById("agenda").innerHTML = new TextDecoder().decode(plain);
+    document.getElementById("agenda").style.display = "block";
+    document.getElementById("locked").style.display = "none";
+    history.replaceState(null, "", location.pathname + "#" + encodeURIComponent(pw));
+  }catch(e){
+    document.getElementById("err").style.display = "block";
+  }
+}
+function manual(e){
   e.preventDefault();
-  openWith(document.getElementById('pw').value);
+  openWith(document.getElementById("pw").value);
   return false;
 }
-
-const u = decodeURIComponent((location.hash || '').replace(/^#/, '')) ||
-  new URLSearchParams(location.search).get('k');
+const u = decodeURIComponent((location.hash || "").replace(/^#/, "")) || new URLSearchParams(location.search).get("k");
 if (u) openWith(u);
 </script>
 </body>
