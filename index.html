@@ -5,62 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Secretaria · Dashboard</title>
 <style>
-:root{
-  --bg:#070b16;
-  --card:rgba(16,24,48,.92);
-  --line:rgba(255,255,255,.09);
-  --text:#eef2ff;
-  --muted:#94a3b8;
-  --indigo:#818cf8;
-  --indigo-dim:rgba(129,140,248,.15);
-  --teal:#2dd4bf;
-  --teal-dim:rgba(45,212,191,.14);
-  --amber:#fbbf24;
-  --amber-dim:rgba(251,191,36,.14);
-  --rose:#fb7185;
-  --rose-dim:rgba(251,113,133,.12);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  background:
-    radial-gradient(1000px 500px at 8% -15%,rgba(99,102,241,.22),transparent 55%),
-    radial-gradient(800px 420px at 105% 5%,rgba(45,212,191,.12),transparent 50%),
-    radial-gradient(600px 300px at 50% 110%,rgba(251,191,36,.06),transparent 45%),
-    var(--bg);
-  color:var(--text);
-}
+:root{--bg:#070b16;--card:rgba(16,24,48,.92);--line:rgba(255,255,255,.09);--text:#eef2ff;--muted:#94a3b8;--indigo:#818cf8;--indigo-dim:rgba(129,140,248,.15);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,.14);--amber:#fbbf24;--amber-dim:rgba(251,191,36,.14);--rose:#fb7185;--rose-dim:rgba(251,113,133,.12)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(1000px 500px at 8% -15%,rgba(99,102,241,.22),transparent 55%),radial-gradient(800px 420px at 105% 5%,rgba(45,212,191,.12),transparent 50%),radial-gradient(600px 300px at 50% 110%,rgba(251,191,36,.06),transparent 45%),var(--bg);color:var(--text)}
 .wrap{max-width:860px;margin:0 auto;padding:28px 20px 56px}
-.clocks{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:14px;
-  margin:0 0 22px;
-}
-.clock{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px 12px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.clock::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(129,140,248,.06),transparent 60%);
-  pointer-events:none;
-}
-.clock .city{
-  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);font-weight:600;position:relative;
-}
-.clock .hh{
-  margin-top:10px;font-size:28px;font-weight:700;
-  font-variant-numeric:tabular-nums;letter-spacing:.02em;
-  position:relative;
-}
+.clocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:0 0 22px}
+.clock{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 12px;text-align:center;position:relative;overflow:hidden}
+.clock::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(129,140,248,.06),transparent 60%);pointer-events:none}
+.clock .city{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;position:relative}
+.clock .hh{margin-top:10px;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.02em;position:relative}
 .clock .dd{margin-top:6px;font-size:12px;color:var(--muted);position:relative}
 .kicker{color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
 header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
@@ -91,99 +43,55 @@ section{margin-bottom:24px}
 .box{width:17px;height:17px;margin-top:2px;border:1.5px solid #64748b;border-radius:5px}
 .empty{padding:20px 18px;color:var(--muted);font-size:14px;text-align:center}
 footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
-.lock{
-  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
-  display:flex;gap:10px;align-items:center;
-}
+.lock{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;gap:10px;align-items:center}
 .lock input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0a0f1e;color:var(--text);font-size:15px;outline:none}
 .lock button{padding:12px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#818cf8,#6366f1);color:#0b1020;font-weight:700;cursor:pointer}
 .err{display:none;color:#fda4af;font-size:13px;margin-top:10px}
-@media(max-width:720px){
-  .clocks{grid-template-columns:1fr;gap:10px}
-  .clock .hh{font-size:24px}
-  .summary{grid-template-columns:1fr}
-  .event{grid-template-columns:90px 1fr}
-}
+@media(max-width:720px){.clocks{grid-template-columns:1fr;gap:10px}.clock .hh{font-size:24px}.summary{grid-template-columns:1fr}.event{grid-template-columns:90px 1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="clocks">
-    <div class="clock">
-      <div class="city">Colombia</div>
-      <div class="hh" id="t-co">--:--:--</div>
-      <div class="dd" id="d-co"></div>
-    </div>
-    <div class="clock">
-      <div class="city">Múnich</div>
-      <div class="hh" id="t-mu">--:--:--</div>
-      <div class="dd" id="d-mu"></div>
-    </div>
-    <div class="clock">
-      <div class="city">Hong Kong</div>
-      <div class="hh" id="t-hk">--:--:--</div>
-      <div class="dd" id="d-hk"></div>
-    </div>
+    <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--:--</div><div class="dd" id="d-co"></div></div>
+    <div class="clock"><div class="city">Múnich</div><div class="hh" id="t-mu">--:--:--</div><div class="dd" id="d-mu"></div></div>
+    <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--:--</div><div class="dd" id="d-hk"></div></div>
   </div>
   <div id="locked">
     <div class="kicker">Secretaria</div>
     <h1 style="margin:8px 0 14px">Agenda protegida</h1>
-    <form class="lock" onsubmit="return manual(event)">
-      <input id="pw" type="password" placeholder="Clave" autocomplete="off"/>
-      <button type="submit">Abrir</button>
-    </form>
+    <form class="lock" onsubmit="return manual(event)"><input id="pw" type="password" placeholder="Clave" autocomplete="off"/><button type="submit">Abrir</button></form>
     <div class="err" id="err">Clave incorrecta</div>
   </div>
   <div id="agenda" style="display:none"></div>
 </div>
 <script>
-const BLOB = "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";
+const BLOB = "ejhHGSulOjfcrCnNo55LF3MTVY3nHiV+m+VKVEQV8sGxy1seL2o560kWHrVxbVZ5wS4jybUxv7Nd0r20Mt7bP/SQzCDDIFYQN51Qk/WsOBfngVPfyryH/KnVA3Ntq1M1kQKstODecYsd1QIhGzqmpruclYxG6tbZEQQ8UmFV7dWf/o0FrLscweFAJGFEe2NRwi5tB+UZURjkJGc+/G60mATAM3kPwVQQVZlrY7wRs+456r+bXLEwFKc903pbtYyeeuvM9NXlZV/X+tJmaYqJug/tuVoTaLcfc4qdt+hCTdMjMo57cG77XJIdG4CFOe7GJfFcHe8iXDL2YmCqLvI3ktTx+27+LuP+p/y3JbbpQgebflBnFtzTx/AmdrTBRG0sJKP3X5OBhO+YDj7Ap1pjV69rkndyvueGQH4+DIWAFLCognlI4H3BXwUcTDjmvKX2NQAgNe1g+4q5URc8Dyo4Q7yQYtT4d5l8hdAgMglNYqWbgk/XfqnTZO0i4g7sSWRGLzgZXuZgOph2K/nX7tVvPkJ++GX4xhuWKVBgIsCEr4mdAlKe01MxPXi+FySHEncmX3jCVu9wKrsJHxwc4vP9JGba602kynQzYM63RsAbpYxrvzFaBa2lp6DNQNF8Z7jDE6mZc3FToSlvccnVGHQqbh/JMFa/WnZ7iz5xQOxWQoAlVtkrPDxCXwamYMBwAjeoJss1e10HWJ6qb8K7QQVmgQDmZe5X3hDfuEQxzlkZFK2Wz+G1HRkds/8nArx0ETW4anGbMAvnS71UeRMuMfxM6upw0Ll2kFZ4MrUwJ690+K/aVKI3yAhStUSZodj9HB0p27ZCjgzUgh9z8AFPoMmpiQfvSTBhpNGTBafVNNcMsV/1EOoNoqJ8tVsj62lxVoD+XUjYQNNnQiYFlrkOl3FIt1qr7Qf1FASFCfNl/BIGS1sbKZHvh4vPfSjk/nASMxnLPOw4X8UXHDgZbmYjOLrYLzyJEmHf6UAzXGa3RHs4+vFg/D1mGAv2aVTf8Kg/X+9BPog/0IITiPINoItL48AFXWAnnSqvFCi73OVL5hh1xoJWgKkJhMK3jL6XFi/ou/wB3gVVKyoltFHKebf4V6fuX0pK9PZVLZg/HsvJ+G2Q6EzhziBEl51HvURrkWhLxIbOqJ3z/wwojKAtjb6HaBeVZD3ZBAN1y8yUajxhSnlrHd/IkCLSU75WfseIl+TkCdKKTNVNPSgLviKZ31tnlhzfKbk7AMwGmJKzsuBXgfSPE6m57/7tVM4SKQuMJspDJ1czemapeDTKOF0vWgS2cSih/f3zLxi2E8FwwgO6KatqBTJ3UgsoQy/kkfm4tOvJmAuIYeg0X3eeEDJkPoTjIXJVhuwoAZE4SmsxYi0+z11Noh98IWlqvsWqHT3BJHBvP1zhR1M33n2D/QwbghpuZd1sUzkGCvXxKb09l7/P4Jj7UC16JrOALGnjhw4seiJywSO5vxC8KMvr7+6GVvwlZxHmiQdWdZxlfjLPA6NrCSo3otel5hP6OlF4+qgMOCtnPleZL/HUhi2THc0kHd9gJEoXIcL8vcaqHYhQizdTR6miE49UqudeLS70AJKO3tJkeuOq+HxFx1IPJdlRmeUlP5wsdtgfXKSyNZIFDqsVVlOMkV1w39VixRdgvfCTPlCEiCKbdxhnPgNG4byGAivMrljl/4FhJGwQs/tdiPlS0QCISvnSm/3xIAORyvq4c984W38JajXs2KUXDPuft7KTFml7b4wH9RupVg6PhrszAG61ifw38I71/g9bxy15Ua27sY/BYGi3SIhfvBgVgTqTKvhwSGkUSJ83TvkBf7tXq29fdNBB1WpyhZ7r9mun12m9X9QV6ivMAZxEn5aHZuNZc5R3vTQf2j216RpZZVnQB8I4GNDo2YUbks+MxB+vZjILjqJWre9LC6sId008lF2kfWl+xhlpVJP2Qyi073sH10FwM/73tXxYAck1l6bZ87PvRRw/so63KRCKHAgrSQz4EF3a3kjcv7ulEvtKjkNPyRt5k2HNKn730Tg2m20QTzaGFB9prxEzetjHazBvvYgakS3wR6nE8/TKaU2u0nNpeizDypMJp8/pmI8ohKJO/dUd3HQqJ2fZnSwbIhC5U/YhJKhcacGtAYYEWIR/FmU4EBhorgilScoWI5KiwMlGvXaCO6OF/1Lrs+7w7r1wZUJ9QBtg2eaaZ7yGUr/XoDr6+xas2+2yNPFTggBcNygfiO5XwSB9ySKXc5hq4yccSGda3YmsFrAlSVlWF7NPrVIZ3lo1/SxZ9TUpZsP7HLX4FuIE82Po4GuLO6shbqy3QuE3PTkAdbIEEilM6W8Fv37zxLa+01h8mDQZYzrLrtlWSctpHenRcCeMO9pfjOT/OK/0vL2wVXdQM+0trUS/ufhQ2cm5n+l4muLJzVQtaUH2RwbN3DuvM5xRVEC/OM26Ei0BEcZIoT0n8Dq6Mxb9bptMuzexd+sXhK1j2XU0KbKxTecXiUyjWuiB89chIRgmzVvExxoOuhHKtSNzfcHBFNQeDGonegxnOU1jiAjxV+cJaP+w05N246oVp5tHsjPT5tAMwstDIXPxnSApHtgUJUtrty4DWU+Qa+E7IQxTNQ551YHcgiys+WWtzaAjLSVaeJm6fHRhjKoR/XhzCAtvDLj/KWawJQScqlP34WCbXnsjTCPuUs6uG+Xbg7Zx1UOOrv/dNQG6kxalqlBj7INIS7/rqKVMr2fllqw+1Bo1XpabHZUNmA04U5tCZiVxkrOKGBva1CMjNim4MkzSqskYH/UYcTd29A==";
 function tick(){
-  const zones = [
-    ["t-co","d-co","America/Bogota"],
-    ["t-mu","d-mu","Europe/Berlin"],
-    ["t-hk","d-hk","Asia/Hong_Kong"]
-  ];
-  const now = new Date();
+  const zones=[["t-co","d-co","America/Bogota"],["t-mu","d-mu","Europe/Berlin"],["t-hk","d-hk","Asia/Hong_Kong"]];
+  const now=new Date();
   for (const [tid,did,tz] of zones){
-    document.getElementById(tid).textContent = now.toLocaleTimeString("es-CO",{
-      timeZone:tz, hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
-    });
-    document.getElementById(did).textContent = now.toLocaleDateString("es-CO",{
-      timeZone:tz, weekday:"short", day:"numeric", month:"short"
-    });
+    document.getElementById(tid).textContent=now.toLocaleTimeString("es-CO",{timeZone:tz,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+    document.getElementById(did).textContent=now.toLocaleDateString("es-CO",{timeZone:tz,weekday:"short",day:"numeric",month:"short"});
   }
 }
-tick();
-setInterval(tick, 1000);
-
-function b64ToBytes(b64){
-  const bin = atob(b64);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
+tick();setInterval(tick,1000);
+function b64ToBytes(b64){const bin=atob(b64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
 async function openWith(pw){
   try{
-    const rawKey = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw));
-    const key = await crypto.subtle.importKey("raw", rawKey, "AES-GCM", false, ["decrypt"]);
-    const raw = b64ToBytes(BLOB);
-    const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv: raw.slice(0,12)}, key, raw.slice(12));
-    document.getElementById("agenda").innerHTML = new TextDecoder().decode(plain);
-    document.getElementById("agenda").style.display = "block";
-    document.getElementById("locked").style.display = "none";
-    history.replaceState(null, "", location.pathname + "#" + encodeURIComponent(pw));
-  }catch(e){
-    document.getElementById("err").style.display = "block";
-  }
+    const rawKey=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw));
+    const key=await crypto.subtle.importKey("raw",rawKey,"AES-GCM",false,["decrypt"]);
+    const raw=b64ToBytes(BLOB);
+    const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:raw.slice(0,12)},key,raw.slice(12));
+    document.getElementById("agenda").innerHTML=new TextDecoder().decode(plain);
+    document.getElementById("agenda").style.display="block";
+    document.getElementById("locked").style.display="none";
+    history.replaceState(null,"",location.pathname+"#"+encodeURIComponent(pw));
+  }catch(e){document.getElementById("err").style.display="block";}
 }
-function manual(e){
-  e.preventDefault();
-  openWith(document.getElementById("pw").value);
-  return false;
-}
-const u = decodeURIComponent((location.hash || "").replace(/^#/, "")) || new URLSearchParams(location.search).get("k");
-if (u) openWith(u);
+function manual(e){e.preventDefault();openWith(document.getElementById("pw").value);return false;}
+const u=decodeURIComponent((location.hash||"").replace(/^#/,""))||new URLSearchParams(location.search).get("k");
+if(u)openWith(u);
 </script>
 </body>
 </html>
