@@ -1,1 +1,97 @@
-$(cat /tmp/index.html)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Secretaria · Dashboard</title>
+<style>
+:root{--bg:#070b16;--card:rgba(16,24,48,.92);--line:rgba(255,255,255,.09);--text:#eef2ff;--muted:#94a3b8;--indigo:#818cf8;--indigo-dim:rgba(129,140,248,.15);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,.14);--amber:#fbbf24;--amber-dim:rgba(251,191,36,.14);--rose:#fb7185;--rose-dim:rgba(251,113,133,.12)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(1000px 500px at 8% -15%,rgba(99,102,241,.22),transparent 55%),radial-gradient(800px 420px at 105% 5%,rgba(45,212,191,.12),transparent 50%),radial-gradient(600px 300px at 50% 110%,rgba(251,191,36,.06),transparent 45%),var(--bg);color:var(--text)}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 56px}
+.clocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:0 0 22px}
+.clock{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 12px;text-align:center;position:relative;overflow:hidden}
+.clock::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(129,140,248,.06),transparent 60%);pointer-events:none}
+.clock .city{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;position:relative}
+.clock .hh{margin-top:10px;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.02em;position:relative}
+.clock .dd{margin-top:6px;font-size:12px;color:var(--muted);position:relative}
+.kicker{color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+h1{margin:6px 0 4px;font-size:30px;letter-spacing:-.03em;font-weight:700}
+.date{color:var(--muted);font-size:15px}
+.chip{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13px;color:var(--muted);white-space:nowrap}
+.chip b{color:var(--text)}
+.summary{display:grid;grid-template-columns:1.5fr .8fr .8fr;gap:12px;margin-bottom:30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.label{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.value{margin-top:8px;font-size:20px;font-weight:700}
+.sub{margin-top:4px;color:var(--muted);font-size:13px}
+section{margin-bottom:24px}
+.proj{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dot.indigo{background:var(--indigo);box-shadow:0 0 0 4px var(--indigo-dim)}
+.dot.teal{background:var(--teal);box-shadow:0 0 0 4px var(--teal-dim)}
+.dot.amber{background:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
+.dot.rose{background:var(--rose);box-shadow:0 0 0 4px var(--rose-dim)}
+.proj h2{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.event,.task{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:16px 18px}
+.task{grid-template-columns:24px 1fr}
+.event+.event,.task+.task{border-top:1px solid var(--line)}
+.time{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
+.time span{display:block;color:var(--muted);font-size:12px;margin-top:3px;font-weight:500}
+.title{font-size:16px;font-weight:650;line-height:1.35}
+.meta{margin-top:5px;color:var(--muted);font-size:13px}
+.box{width:17px;height:17px;margin-top:2px;border:1.5px solid #64748b;border-radius:5px}
+.empty{padding:20px 18px;color:var(--muted);font-size:14px;text-align:center}
+footer{margin-top:36px;color:#64748b;font-size:12px;text-align:center}
+.lock{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;gap:10px;align-items:center}
+.lock input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0a0f1e;color:var(--text);font-size:15px;outline:none}
+.lock button{padding:12px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#818cf8,#6366f1);color:#0b1020;font-weight:700;cursor:pointer}
+.err{display:none;color:#fda4af;font-size:13px;margin-top:10px}
+@media(max-width:720px){.clocks{grid-template-columns:1fr;gap:10px}.clock .hh{font-size:24px}.summary{grid-template-columns:1fr}.event{grid-template-columns:90px 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="clocks">
+    <div class="clock"><div class="city">Colombia</div><div class="hh" id="t-co">--:--:--</div><div class="dd" id="d-co"></div></div>
+    <div class="clock"><div class="city">Múnich</div><div class="hh" id="t-mu">--:--:--</div><div class="dd" id="d-mu"></div></div>
+    <div class="clock"><div class="city">Hong Kong</div><div class="hh" id="t-hk">--:--:--</div><div class="dd" id="d-hk"></div></div>
+  </div>
+  <div id="locked">
+    <div class="kicker">Secretaria</div>
+    <h1 style="margin:8px 0 14px">Agenda protegida</h1>
+    <form class="lock" onsubmit="return manual(event)"><input id="pw" type="password" placeholder="Clave" autocomplete="off"/><button type="submit">Abrir</button></form>
+    <div class="err" id="err">Clave incorrecta</div>
+  </div>
+  <div id="agenda" style="display:none"></div>
+</div>
+<script>
+const BLOB = "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";
+function tick(){
+  const zones=[["t-co","d-co","America/Bogota"],["t-mu","d-mu","Europe/Berlin"],["t-hk","d-hk","Asia/Hong_Kong"]];
+  const now=new Date();
+  for (const [tid,did,tz] of zones){
+    document.getElementById(tid).textContent=now.toLocaleTimeString("es-CO",{timeZone:tz,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+    document.getElementById(did).textContent=now.toLocaleDateString("es-CO",{timeZone:tz,weekday:"short",day:"numeric",month:"short"});
+  }
+}
+tick();setInterval(tick,1000);
+function b64ToBytes(b64){const bin=atob(b64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
+async function openWith(pw){
+  try{
+    const rawKey=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw));
+    const key=await crypto.subtle.importKey("raw",rawKey,"AES-GCM",false,["decrypt"]);
+    const raw=b64ToBytes(BLOB);
+    const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:raw.slice(0,12)},key,raw.slice(12));
+    document.getElementById("agenda").innerHTML=new TextDecoder().decode(plain);
+    document.getElementById("agenda").style.display="block";
+    document.getElementById("locked").style.display="none";
+    history.replaceState(null,"",location.pathname+"#"+encodeURIComponent(pw));
+  }catch(e){document.getElementById("err").style.display="block";}
+}
+function manual(e){e.preventDefault();openWith(document.getElementById("pw").value);return false;}
+const u=decodeURIComponent((location.hash||"").replace(/^#/,""))||new URLSearchParams(location.search).get("k");
+if(u)openWith(u);
+</script>
+</body>
+</html>
